@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="addressbook.stylesheet.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    
 </head>
 <body>
     <div class="body-container">
@@ -93,10 +94,12 @@
                         <p>Search</p>
                         <div class="searchbar">
                             <p><i class="fas fa-search"></i></p>
-                            <form action="/action_page.php">
-                            <input type="text" placeholder = "Enter any keyword" name="search">
-                            </form>
-                        </div><button type="button">Clear</button>
+                            <input type="text" id="searchInput" placeholder="Enter any keyword" name="search">
+                            <ul id="searchResults"></ul>
+                        </div>
+                        
+                        <button type="reset">Clear</button>
+
 
                     </div>
                     <div class="filter-container">
@@ -114,7 +117,18 @@
                         </div>
                     </div>
                     <div class="add-employee">
-                        <button type="button">Add Employee</button>
+                        <button type="button" onclick="AddEmployee()">Add Employee</button>
+                        <form id="employeeForm" style="display: none;">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name"><br><br>
+                            <label for="jobTitle">Job Title:</label>
+                            <input type="text" id="jobTitle" name="jobTitle"><br><br>
+                            <label for="department">Department:</label>
+                            <input type="text" id="department" name="department"><br><br>
+                            <label for="profilePicture">Profile Picture:</label>
+                            <input type="file" id="profilePicture" name="profilePicture"><br><br>
+                            <input type="submit" value="Submit">
+                        </form>
                     </div>
                 </div>
                 <div class="note-container">
@@ -122,72 +136,9 @@
                 </div>
                 <div class="employees-container">
                     <div class="employee-grid">
-                        <div class="employee-details-container">
+                        <div id="employeeList">
 
-                            <img src="images/dp1.png" />
-                            <div class="employee-details">
-                                <h1>Employee Name</h1>
-                                <p>Job title<br />Department</p>
-                                <p><i class="fas fa-phone-square-alt"> </i><i class="fas fa-envelope"> </i><i class="fas fa-comment"> </i><i class="fas fa-star"> </i><i class="fas fa-heart"></i> </p>
-                            </div>
-                        </div>
-                        <div class="employee-details-container">
-                            <img src="images/dp2.png" />
-                            <div class="employee-details">
-                                <h1>Employee Name</h1>
-                                <p>Job title<br />Department</p>
-                                <p><i class="fas fa-phone-square-alt"> </i><i class="fas fa-envelope"> </i><i class="fas fa-comment"> </i><i class="fas fa-star"> </i><i class="fas fa-heart"></i> </p>
-                            </div>
-                        </div>
-                        <div class="employee-details-container">
-                            <img src="images/dp3.png" />
-                            <div class="employee-details">
-                                <h1>Employee Name</h1>
-                                <p>Job title<br />Department</p>
-                                <p><i class="fas fa-phone-square-alt"> </i><i class="fas fa-envelope"> </i><i class="fas fa-comment"> </i><i class="fas fa-star"> </i><i class="fas fa-heart"></i> </p>
-                            </div>
-                        </div>
-                        <div class="employee-details-container">
-                            <img src="images/dp4.png" />
-                            <div class="employee-details">
-                                <h1>Employee Name</h1>
-                                <p>Job title<br />Department</p>
-                                <p><i class="fas fa-phone-square-alt"> </i><i class="fas fa-envelope"> </i><i class="fas fa-comment"> </i><i class="fas fa-star"> </i><i class="fas fa-heart"></i> </p>
-                            </div>
-                        </div>
-
-
-                        <div class="employee-details-container">
-                            <img src="images/dp5.png" />
-                            <div class="employee-details">
-                                <h1>Employee Name</h1>
-                                <p>Job title<br />Department</p>
-                                <p><i class="fas fa-phone-square-alt"> </i><i class="fas fa-envelope"> </i><i class="fas fa-comment"> </i><i class="fas fa-star"> </i><i class="fas fa-heart"></i> </p>
-                            </div>
-                        </div>
-                        <div class="employee-details-container">
-                            <img src="images/dp6.png" />
-                            <div class="employee-details">
-                                <h1>Employee Name</h1>
-                                <p>Job title<br />Department</p>
-                                <p><i class="fas fa-phone-square-alt"> </i><i class="fas fa-envelope"> </i><i class="fas fa-comment"> </i><i class="fas fa-star"> </i><i class="fas fa-heart"></i> </p>
-                            </div>
-                        </div>
-                        <div class="employee-details-container">
-                            <img src="images/dp7.png" />
-                            <div class="employee-details">
-                                <h1>Employee Name</h1>
-                                <p>Job title<br />Department</p>
-                                <p><i class="fas fa-phone-square-alt"> </i><i class="fas fa-envelope"> </i><i class="fas fa-comment"> </i><i class="fas fa-star"> </i><i class="fas fa-heart"></i> </p>
-                            </div>
-                        </div>
-                        <div class="employee-details-container">
-                            <img src="images/dp8.png" />
-                            <div class="employee-details">
-                                <h1>Employee Name</h1>
-                                <p>Job title<br />Department</p>
-                                <p><i class="fas fa-phone-square-alt"> </i><i class="fas fa-envelope"> </i><i class="fas fa-comment"> </i><i class="fas fa-star"> </i><i class="fas fa-heart"></i> </p>
-                            </div>
+                            
                         </div>
 
                         </div>
@@ -196,6 +147,7 @@
              
         </div>
     </div>
-         
+
+    <script src="addressbook.js"></script>       
 </body>
 </html>

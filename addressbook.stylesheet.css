@@ -74,7 +74,6 @@
             text-decoration: none;
             color:gray;
         }
-
         .viewmore a{
             color:#19b7fc;
             font-size:14px;
@@ -125,10 +124,11 @@
         }
         .searching-container p{
             font-weight:bold;
+            float:left;
+            margin-top:8px;
         }
         .searchbar {
             border: 2px solid lightgrey;
-            display: flex;
             margin:0 20px;
             height:35px;
         }
@@ -142,6 +142,22 @@
             padding:9px;
             padding-right:30px;
             outline:none;
+        }
+        .searchbar-container li{
+            border: solid 1px gray;
+            margin:2px;
+            padding:2px 5px;
+        }
+        .searchbar a{
+            text-decoration: none;
+            color: black;
+        }
+        #searchResults{
+            list-style-type:none;
+            background-color:#e9e8e8;
+            z-index:1;
+            position:relative;
+            padding:0;
         }
 
         .searchbar-container button {
@@ -183,7 +199,7 @@
             margin-top:-10px;
         }
         .employees-container{
-            height:400px;
+            min-height:400px;
             border: 1px solid black;
         }
         .employee-grid{
@@ -201,34 +217,38 @@
         .employees-container tr{
             
         }
-        .employee-details-container{
-            background-color:#e9e8e8;
-            display:flex;
-            align-items:center;
+        #employeeList{
+            display:contents;
+            
         }
-        .employee-details-container img{
+        #employeeList img{
             height:70px;
             width:70px;
-            margin-left:10px;
-            
-            
+            margin-right:10px;
+            float:left;
         }
-        .employee-details{
-            margin:8px 10px;
-        }
-        .employee-details h1{
-            margin:0;
+        #employeeList h1{
+            margin-top:0;            
             font-size:15px;
+            margin-bottom: 0px;
         }
-        .employee-details p{
-            margin:0;
-            margin-bottom:3px;
+        #employeeList p{
+            margin-top:0;            
+            margin-bottom:0px;
             font-size:14px;
             color:gray
         }
-        .employees-container .employee-details i{
+        .employee-card{
+            background-color:#e9e8e8;
+            padding:10px;
+            height:70px;
+        }
+        
+        #employeeList i{
             width :10px;
             margin-right:10px;
             font-size:13px;
+            color:gray;
               
         }
+        
