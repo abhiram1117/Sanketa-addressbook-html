@@ -1,68 +1,147 @@
 // displaying Employee details
 
 let employees = [
-    { profilePhoto: 'images/dp1.png',name:'Anthony Morris', firstName: 'Anthony',lastName: 'Morris', jobTitle: 'SharePoint Practice Head', department: 'IT', profileURL: '1.html', location:'Seattle' },
-    { profilePhoto: 'images/dp2.png',name:'Helen Zimmerman', firstName: 'Helen', lastName: ' Zimmerman', jobTitle: 'Operatons Manager', department: 'IT', profileURL: '2.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp3.png', name: 'Joanthon Smith', firstName: 'Joanthon', lastName: ' Smith', jobTitle: 'Product Manager', department: 'IT', profileURL: '3.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp4.png', name: 'Tami Hopkins', firstName: 'Tami', lastName: ' Hopkins', jobTitle: 'Lead Engineer', department: 'IT', profileURL: '4.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp5.png', name: 'Franklin Humark', firstName: 'Franklin', lastName: ' Humark', jobTitle: 'Network Engineer', department: 'IT', profileURL: '5.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp6.png', name: 'Angela Bailey', firstName: 'Angela', lastName: ' Bailey', jobTitle: 'Talent Manager', department: 'HR', profileURL: '6.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp7.png', name: 'Robert Mitchell', firstName: 'Robert', lastName: ' Mitchell', jobTitle: 'Software Engineer', department: 'IT', profileURL: '7.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp8.png', name: 'Olivia Watson', firstName: 'Olivia', lastName: ' Watson', jobTitle: 'UI Designer', department: 'UX', profileURL: '8.html', location: 'India' },
+    { profilePhoto: 'images/dp1.png', firstName: 'Anthony',lastName: 'Morris', jobTitle: 'SharePoint Practice Head', department: 'IT', profileURL: '1.html', location:'Seattle' },
+    { profilePhoto: 'images/dp2.png', firstName: 'Helen', lastName: ' Zimmerman', jobTitle: 'Operatons Manager', department: 'IT', profileURL: '2.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp3.png', firstName: 'Joanthon', lastName: ' Smith', jobTitle: 'Product Manager', department: 'IT', profileURL: '3.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp4.png', firstName: 'Tami', lastName: ' Hopkins', jobTitle: 'Lead Engineer', department: 'IT', profileURL: '4.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp5.png', firstName: 'Franklin', lastName: ' Humark', jobTitle: 'Network Engineer', department: 'IT', profileURL: '5.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp6.png', firstName: 'Angela', lastName: ' Bailey', jobTitle: 'Talent Manager', department: 'HR', profileURL: '6.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp7.png', firstName: 'Robert', lastName: ' Mitchell', jobTitle: 'Software Engineer', department: 'IT', profileURL: '7.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp8.png', firstName: 'Olivia', lastName: ' Watson', jobTitle: 'UI Designer', department: 'UX', profileURL: '8.html', location: 'India' },
 ];
 
 
+
+const employeeList = document.getElementById('employeeList');
+const editModal = document.getElementById('editEmployeeModal');
+const closeEditModalButton = document.getElementById('closeEditModal');
+const employeeCards = document.querySelectorAll('.employee-card');
+
 function displayEmployees(employeeData) {
-    const employeeList = document.getElementById('employeeList');
     employeeList.innerHTML = "";
 
-    employeeData.forEach(employee => {
+    employeeData.forEach((employee,index) => {
         const employeeCard = document.createElement('div');
         employeeCard.classList.add('employee-card');
-
-        const profileImage = document.createElement('img');
-        profileImage.src = employee.profilePhoto;
-
-
-        const nameElement = document.createElement('h1');
-        nameElement.textContent = employee.name;
-
-        const jobTitleElement = document.createElement('p');
-        jobTitleElement.textContent = employee.jobTitle;
-
-        const departmentElement = document.createElement('p');
-        departmentElement.textContent = `${employee.department} Department`;
-
-        const phoneIcon = document.createElement('i');
-        phoneIcon.classList.add('fas', 'fa-phone-square-alt');
-
-        const mailIcon = document.createElement('i');
-        mailIcon.classList.add('fas', 'fa-envelope');
-
-        const messageIcon = document.createElement('i');
-        messageIcon.classList.add('fas', 'fa-comment');
-
-        const importantIcon = document.createElement('i');
-        importantIcon.classList.add('fas', 'fa-star');
-
-        const favouriteIcon = document.createElement('i');
-        favouriteIcon.classList.add('fas', 'fa-heart');
-
-
-
-        employeeCard.appendChild(profileImage);
-        employeeCard.appendChild(nameElement);
-        employeeCard.appendChild(jobTitleElement);
-        employeeCard.appendChild(departmentElement);
-        employeeCard.appendChild(phoneIcon);
-        employeeCard.appendChild(mailIcon);
-        employeeCard.appendChild(messageIcon);
-        employeeCard.appendChild(importantIcon);
-        employeeCard.appendChild(favouriteIcon);
+        employeeCard.innerHTML = `
+           <div class="employee-info">
+               <img src="${employee.profilePhoto}">
+               <h1>${employee.firstName} ${employee.lastName}</h1>
+               <p>${employee.jobTitle}<br>${employee.department} department</p>
+               <i class="fas fa-phone-square-alt"> </i><i class="fas fa-envelope"> </i><i class="fas fa-comment"> </i><i class="fas fa-star"> </i><i class="fas fa-heart"></i>
+               
+           
+       `;
 
         employeeList.appendChild(employeeCard);
+
+        employeeCard.addEventListener('click', function () {
+            openEditEmployeeModal(employees[index]);
+        });
     });
 }
+
+
+function openEditEmployeeModal(employee) {
+    editModal.style.display = 'block';
+
+    document.getElementById('editFirstName').value = employee.firstName;
+    document.getElementById('editLastName').value = employee.lastName;
+    document.getElementById('editJobTitle').value = employee.jobTitle;
+    document.getElementById('editDepartment').value = employee.department;
+    document.getElementById('editLocation').value = employee.location;
+
+    document.getElementById('saveEdit').addEventListener('click', function () {
+        saveEmployeeEdits(employee);
+    });
+}
+
+function closeEditEmployeeModal() {
+    editModal.style.display = 'none';
+}
+
+function saveEmployeeEdits(employee) {
+    const editedFirstName = document.getElementById('editFirstName').value;
+    const editedLastName = document.getElementById('editLastName').value;
+    const editedJobTitle = document.getElementById('editJobTitle').value;
+    const editedDepartment = document.getElementById('editDepartment').value;
+    const editedLocation = document.getElementById('editLocation').value;
+
+    employee.firstName = editedFirstName;
+    employee.lastName = editedLastName;
+    employee.jobTitle = editedJobTitle;
+    employee.department = editedDepartment;
+    employee.location = editedLocation;
+
+    closeEditEmployeeModal();
+
+    displayEmployees(employees);
+}
+
+closeEditModalButton.addEventListener('click', closeEditEmployeeModal);
+
+
+//const employeeCards = document.getElementsByClassName('employee-card');
+//for (const card of employeeCards) {
+//    card.addEventListener('click', () => {
+//        // Find the associated employee based on the clicked element
+//        const employeeIndex = Array.from(card.parentNode.children).indexOf(card);
+//        const employee = employees[employeeIndex];
+
+//        // Open the edit modal with the selected employee's details
+//        openEditEmployeeModal(employee);
+//    });
+//}
+
+//function hideEditForm() {
+//    const editForm = document.getElementById('editEmployeeForm');
+//    editForm.classList.add('hidden');
+//}
+
+    //    const profileImage = document.createElement('img');
+    //    profileImage.src = employee.profilePhoto;
+
+
+    //    const nameElement = document.createElement('h1');
+    //    nameElement.textContent = employee.name;
+
+    //    const jobTitleElement = document.createElement('p');
+    //    jobTitleElement.textContent = employee.jobTitle;
+
+    //    const departmentElement = document.createElement('p');
+    //    departmentElement.textContent = `${employee.department} Department`;
+
+    //    const phoneIcon = document.createElement('i');
+    //    phoneIcon.classList.add('fas', 'fa-phone-square-alt');
+
+    //    const mailIcon = document.createElement('i');
+    //    mailIcon.classList.add('fas', 'fa-envelope');
+
+    //    const messageIcon = document.createElement('i');
+    //    messageIcon.classList.add('fas', 'fa-comment');
+
+    //    const importantIcon = document.createElement('i');
+    //    importantIcon.classList.add('fas', 'fa-star');
+
+    //    const favouriteIcon = document.createElement('i');
+    //    favouriteIcon.classList.add('fas', 'fa-heart');
+
+
+
+    //    employeeCard.appendChild(profileImage);
+    //    employeeCard.appendChild(nameElement);
+    //    employeeCard.appendChild(jobTitleElement);
+    //    employeeCard.appendChild(departmentElement);
+    //    employeeCard.appendChild(phoneIcon);
+    //    employeeCard.appendChild(mailIcon);
+    //    employeeCard.appendChild(messageIcon);
+    //    employeeCard.appendChild(importantIcon);
+    //    employeeCard.appendChild(favouriteIcon);
+
+    //    employeeList.appendChild(employeeCard);
+    //});
+//}
 // searching employees function
 //function searchEmployees() {
 //    const searchInput = document.getElementById('searchInput');
@@ -100,276 +179,294 @@ function clearSearch() {
 }
 
 
-function employeesByNameA() {
-    const employeesStartingWithA = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('a')
+//function employeesByNameA() {
+//    const employeesStartingWithA = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('a')
+//    );
+
+//    displayEmployees(employeesStartingWithA);
+//}
+
+//function employeesByNameB() {
+//    const employeesStartingWithB = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('b')
+//    );
+
+//    displayEmployees(employeesStartingWithB);
+//}
+
+//function employeesByNameC() {
+//    const employeesStartingWithC = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('c')
+//    );
+
+//    displayEmployees(employeesStartingWithC);
+//}
+//function employeesByNameD() {
+//    const employeesStartingWithD = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('d')
+//    );
+
+//    displayEmployees(employeesStartingWithD);
+//}
+//function employeesByNameE() {
+//    const employeesStartingWithE = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('e')
+//    );
+
+//    displayEmployees(employeesStartingWithE);
+//}
+//function employeesByNameF() {
+//    const employeesStartingWithF = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('f')
+//    );
+
+//    displayEmployees(employeesStartingWithF);
+//}
+//function employeesByNameG() {
+//    const employeesStartingWithG = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('g')
+//    );
+
+//    displayEmployees(employeesStartingWithG);
+//}
+//function employeesByNameH() {
+//    const employeesStartingWithH = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('h')
+//    );
+
+//    displayEmployees(employeesStartingWithH);
+//}
+//function employeesByNameI() {
+//    const employeesStartingWithI = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('i')
+//    );
+
+//    displayEmployees(employeesStartingWithI);
+//}
+//function employeesByNameJ() {
+//    const employeesStartingWithJ = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('j')
+//    );
+
+//    displayEmployees(employeesStartingWithJ);
+//}
+//function employeesByNameK() {
+//    const employeesStartingWithK = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('k')
+//    );
+
+//    displayEmployees(employeesStartingWithK);
+//}
+//function employeesByNameL() {
+//    const employeesStartingWithL = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('l')
+//    );
+
+//    displayEmployees(employeesStartingWithL);
+//}
+//function employeesByNameM() {
+//    const employeesStartingWithM = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('m')
+//    );
+
+//    displayEmployees(employeesStartingWithM);
+//}
+//function employeesByNameN() {
+//    const employeesStartingWithN = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('n')
+//    );
+
+//    displayEmployees(employeesStartingWithN);
+//}
+//function employeesByNameO() {
+//    const employeesStartingWithO = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('o')
+//    );
+
+//    displayEmployees(employeesStartingWithO);
+//}
+//function employeesByNameP() {
+//    const employeesStartingWithP = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('p')
+//    );
+
+//    displayEmployees(employeesStartingWithP);
+//}
+//function employeesByNameQ() {
+//    const employeesStartingWithQ = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('q')
+//    );
+
+//    displayEmployees(employeesStartingWithQ);
+//}
+//function employeesByNameR() {
+//    const employeesStartingWithR = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('r')
+//    );
+
+//    displayEmployees(employeesStartingWithR);
+//}
+//function employeesByNameS() {
+//    const employeesStartingWithS = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('s')
+//    );
+
+//    displayEmployees(employeesStartingWithS);
+//}
+//function employeesByNameT() {
+//    const employeesStartingWithT = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('t')
+//    );
+
+//    displayEmployees(employeesStartingWithT);
+//}
+//function employeesByNameU() {
+//    const employeesStartingWithU = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('u')
+//    );
+
+//    displayEmployees(employeesStartingWithU);
+//}
+//function employeesByNameV() {
+//    const employeesStartingWithV = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('v')
+//    );
+
+//    displayEmployees(employeesStartingWithV);
+//}
+//function employeesByNameW() {
+//    const employeesStartingWithW = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('w')
+//    );
+
+//    displayEmployees(employeesStartingWithW);
+//}
+//function employeesByNameX() {
+//    const employeesStartingWithX = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('x')
+//    );
+
+//    displayEmployees(employeesStartingWithX);
+//}
+//function employeesByNameY() {
+//    const employeesStartingWithY = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('y')
+//    );
+
+//    displayEmployees(employeesStartingWithY);
+//}
+//function employeesByNameZ() {
+//    const employeesStartingWithZ = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('z')
+//    );
+
+//    displayEmployees(employeesStartingWithZ);
+//}
+
+function filterEmployeesByAlphabet(alphabet) {
+    const matchingEmployees = employees.filter(employee =>
+        employee.firstName.toLowerCase().startsWith(alphabet.toLowerCase())
     );
 
-    displayEmployees(employeesStartingWithA);
+    displayEmployees(matchingEmployees);
 }
 
-function employeesByNameB() {
-    const employeesStartingWithB = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('b')
-    );
+function createAlphabetButtons() {
+    const alphabetButtons = document.getElementById('alphabetButtons');
 
-    displayEmployees(employeesStartingWithB);
+    for (let letter = 'A'; letter <= 'Z'; letter = String.fromCharCode(letter.charCodeAt(0) + 1)) {
+        const button = document.createElement('button');
+        button.textContent = letter;
+        button.addEventListener('click', () => filterEmployeesByAlphabet(letter));
+        alphabetButtons.appendChild(button);
+    }
 }
-
-function employeesByNameC() {
-    const employeesStartingWithC = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('c')
-    );
-
-    displayEmployees(employeesStartingWithC);
-}
-function employeesByNameD() {
-    const employeesStartingWithD = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('d')
-    );
-
-    displayEmployees(employeesStartingWithD);
-}
-function employeesByNameE() {
-    const employeesStartingWithE = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('e')
-    );
-
-    displayEmployees(employeesStartingWithE);
-}
-function employeesByNameF() {
-    const employeesStartingWithF = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('f')
-    );
-
-    displayEmployees(employeesStartingWithF);
-}
-function employeesByNameG() {
-    const employeesStartingWithG = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('g')
-    );
-
-    displayEmployees(employeesStartingWithG);
-}
-function employeesByNameH() {
-    const employeesStartingWithH = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('h')
-    );
-
-    displayEmployees(employeesStartingWithH);
-}
-function employeesByNameI() {
-    const employeesStartingWithI = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('i')
-    );
-
-    displayEmployees(employeesStartingWithI);
-}
-function employeesByNameJ() {
-    const employeesStartingWithJ = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('j')
-    );
-
-    displayEmployees(employeesStartingWithJ);
-}
-function employeesByNameK() {
-    const employeesStartingWithK = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('k')
-    );
-
-    displayEmployees(employeesStartingWithK);
-}
-function employeesByNameL() {
-    const employeesStartingWithL = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('l')
-    );
-
-    displayEmployees(employeesStartingWithL);
-}
-function employeesByNameM() {
-    const employeesStartingWithM = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('m')
-    );
-
-    displayEmployees(employeesStartingWithM);
-}
-function employeesByNameN() {
-    const employeesStartingWithN = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('n')
-    );
-
-    displayEmployees(employeesStartingWithN);
-}
-function employeesByNameO() {
-    const employeesStartingWithO = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('o')
-    );
-
-    displayEmployees(employeesStartingWithO);
-}
-function employeesByNameP() {
-    const employeesStartingWithP = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('p')
-    );
-
-    displayEmployees(employeesStartingWithP);
-}
-function employeesByNameQ() {
-    const employeesStartingWithQ = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('q')
-    );
-
-    displayEmployees(employeesStartingWithQ);
-}
-function employeesByNameR() {
-    const employeesStartingWithR = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('r')
-    );
-
-    displayEmployees(employeesStartingWithR);
-}
-function employeesByNameS() {
-    const employeesStartingWithS = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('s')
-    );
-
-    displayEmployees(employeesStartingWithS);
-}
-function employeesByNameT() {
-    const employeesStartingWithT = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('t')
-    );
-
-    displayEmployees(employeesStartingWithT);
-}
-function employeesByNameU() {
-    const employeesStartingWithU = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('u')
-    );
-
-    displayEmployees(employeesStartingWithU);
-}
-function employeesByNameV() {
-    const employeesStartingWithV = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('v')
-    );
-
-    displayEmployees(employeesStartingWithV);
-}
-function employeesByNameW() {
-    const employeesStartingWithW = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('w')
-    );
-
-    displayEmployees(employeesStartingWithW);
-}
-function employeesByNameX() {
-    const employeesStartingWithX = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('x')
-    );
-
-    displayEmployees(employeesStartingWithX);
-}
-function employeesByNameY() {
-    const employeesStartingWithY = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('y')
-    );
-
-    displayEmployees(employeesStartingWithY);
-}
-function employeesByNameZ() {
-    const employeesStartingWithZ = employees.filter(employee =>
-        employee.name.toLowerCase().startsWith('z')
-    );
-
-    displayEmployees(employeesStartingWithZ);
-}
-
-
+document.addEventListener('DOMContentLoaded', createAlphabetButtons);
 
 displayEmployees(employees);
 
 
-const searchInput = document.getElementById('searchInput');
-searchInput.addEventListener('input', searchEmployees);
+//const searchInput = document.getElementById('searchInput');
+//searchInput.addEventListener('input', searchEmployees);
 
-const nameAButton = document.getElementById('nameA');
-nameAButton.addEventListener('click', employeesByNameA);
+//const nameAButton = document.getElementById('nameA');
+//nameAButton.addEventListener('click', employeesByNameA);
 
-const nameBButton = document.getElementById('nameB');
-nameBButton.addEventListener('click', employeesByNameB);
+//const nameBButton = document.getElementById('nameB');
+//nameBButton.addEventListener('click', employeesByNameB);
 
-const nameCButton = document.getElementById('nameC');
-nameCButton.addEventListener('click', employeesByNameC);
+//const nameCButton = document.getElementById('nameC');
+//nameCButton.addEventListener('click', employeesByNameC);
 
-const nameDButton = document.getElementById('nameD');
-nameDButton.addEventListener('click', employeesByNameD);
+//const nameDButton = document.getElementById('nameD');
+//nameDButton.addEventListener('click', employeesByNameD);
 
-const nameEButton = document.getElementById('nameE');
-nameEButton.addEventListener('click', employeesByNameE);
+//const nameEButton = document.getElementById('nameE');
+//nameEButton.addEventListener('click', employeesByNameE);
 
-const nameFButton = document.getElementById('nameF');
-nameFButton.addEventListener('click', employeesByNameF);
+//const nameFButton = document.getElementById('nameF');
+//nameFButton.addEventListener('click', employeesByNameF);
 
-const nameGButton = document.getElementById('nameG');
-nameGButton.addEventListener('click', employeesByNameG);
+//const nameGButton = document.getElementById('nameG');
+//nameGButton.addEventListener('click', employeesByNameG);
 
-const nameHButton = document.getElementById('nameH');
-nameHButton.addEventListener('click', employeesByNameH);
+//const nameHButton = document.getElementById('nameH');
+//nameHButton.addEventListener('click', employeesByNameH);
 
-const nameIButton = document.getElementById('nameI');
-nameIButton.addEventListener('click', employeesByNameI);
+//const nameIButton = document.getElementById('nameI');
+//nameIButton.addEventListener('click', employeesByNameI);
 
-const nameJButton = document.getElementById('nameJ');
-nameJButton.addEventListener('click', employeesByNameJ);
+//const nameJButton = document.getElementById('nameJ');
+//nameJButton.addEventListener('click', employeesByNameJ);
 
-const nameKButton = document.getElementById('nameK');
-nameKButton.addEventListener('click', employeesByNameK);
+//const nameKButton = document.getElementById('nameK');
+//nameKButton.addEventListener('click', employeesByNameK);
 
-const nameLButton = document.getElementById('nameL');
-nameLButton.addEventListener('click', employeesByNameL);
+//const nameLButton = document.getElementById('nameL');
+//nameLButton.addEventListener('click', employeesByNameL);
 
-const nameMButton = document.getElementById('nameM');
-nameMButton.addEventListener('click', employeesByNameM);
+//const nameMButton = document.getElementById('nameM');
+//nameMButton.addEventListener('click', employeesByNameM);
 
-const nameNButton = document.getElementById('nameN');
-nameNButton.addEventListener('click', employeesByNameN);
+//const nameNButton = document.getElementById('nameN');
+//nameNButton.addEventListener('click', employeesByNameN);
 
-const nameOButton = document.getElementById('nameO');
-nameOButton.addEventListener('click', employeesByNameO);
+//const nameOButton = document.getElementById('nameO');
+//nameOButton.addEventListener('click', employeesByNameO);
 
-const namePButton = document.getElementById('nameP');
-namePButton.addEventListener('click', employeesByNameP);
+//const namePButton = document.getElementById('nameP');
+//namePButton.addEventListener('click', employeesByNameP);
 
-const nameQButton = document.getElementById('nameQ');
-nameQButton.addEventListener('click', employeesByNameQ);
+//const nameQButton = document.getElementById('nameQ');
+//nameQButton.addEventListener('click', employeesByNameQ);
 
-const nameRButton = document.getElementById('nameR');
-nameRButton.addEventListener('click', employeesByNameR);
+//const nameRButton = document.getElementById('nameR');
+//nameRButton.addEventListener('click', employeesByNameR);
 
-const nameSButton = document.getElementById('nameS');
-nameSButton.addEventListener('click', employeesByNameS);
+//const nameSButton = document.getElementById('nameS');
+//nameSButton.addEventListener('click', employeesByNameS);
 
-const nameTButton = document.getElementById('nameT');
-nameTButton.addEventListener('click', employeesByNameT);
+//const nameTButton = document.getElementById('nameT');
+//nameTButton.addEventListener('click', employeesByNameT);
 
-const nameUButton = document.getElementById('nameU');
-nameUButton.addEventListener('click', employeesByNameU);
+//const nameUButton = document.getElementById('nameU');
+//nameUButton.addEventListener('click', employeesByNameU);
 
-const nameVButton = document.getElementById('nameV');
-nameVButton.addEventListener('click', employeesByNameV);
+//const nameVButton = document.getElementById('nameV');
+//nameVButton.addEventListener('click', employeesByNameV);
 
-const nameWButton = document.getElementById('nameW');
-nameWButton.addEventListener('click', employeesByNameW);
+//const nameWButton = document.getElementById('nameW');
+//nameWButton.addEventListener('click', employeesByNameW);
 
-const nameXButton = document.getElementById('nameX');
-nameXButton.addEventListener('click', employeesByNameX);
+//const nameXButton = document.getElementById('nameX');
+//nameXButton.addEventListener('click', employeesByNameX);
 
-const nameYButton = document.getElementById('nameY');
-nameYButton.addEventListener('click', employeesByNameY);
+//const nameYButton = document.getElementById('nameY');
+//nameYButton.addEventListener('click', employeesByNameY);
 
-const nameZButton = document.getElementById('nameZ');
-nameZButton.addEventListener('click', employeesByNameZ);
+//const nameZButton = document.getElementById('nameZ');
+//nameZButton.addEventListener('click', employeesByNameZ);
 
 
 //Employee form
@@ -402,7 +499,6 @@ document.getElementById('employeeForm').addEventListener('submit', function (eve
 
     const firstName = document.getElementById('firstName').value;
     const lastName = document.getElementById('lastName').value;
-    const name = document.getElementById('name').value;
     const jobTitle = document.getElementById('jobTitle').value;
     const department = document.getElementById('department').value;
 
@@ -410,9 +506,8 @@ document.getElementById('employeeForm').addEventListener('submit', function (eve
     const newEmployee = {
         firstName: firstName,
         lastName: lastName,
-        name: name,
         jobTitle: jobTitle,
-        department: department
+        department: department,
         
     };
 

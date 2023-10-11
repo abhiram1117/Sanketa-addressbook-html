@@ -48,7 +48,8 @@
             <div class="right-container">
                 <nav class="alphabet-container">
                     <button class="alphabet-box" type="button" onclick="displayEmployees(employees)" ><i class="fas fa-user"></i></button>
-                    <button class="alphabet-box" id="nameA">A</button>
+                    <div id="alphabetButtons"></div>
+                   <!-- <button class="alphabet-box" id="nameA">A</button>
                     <button class="alphabet-box" id="nameB">B</button>
                     <button class="alphabet-box" id="nameC">C</button>
                     <button class="alphabet-box" id="nameD">D</button>
@@ -73,7 +74,7 @@
                     <button class="alphabet-box" id="nameW">W</button>
                     <button class="alphabet-box" id="nameX">X</button>
                     <button class="alphabet-box" id="nameY">Y</button>
-                    <button class="alphabet-box" id="nameZ">Z</button>
+                    <button class="alphabet-box" id="nameZ">Z</button>    -->
 
 
                 </nav>
@@ -110,8 +111,7 @@
                             <div class="modal-content">
                                 <button class="close-button" onclick="closeModal()">×</button>
                                 <form id="employeeForm">
-                                    <label for="name">Full Name:</label>
-                                    <input type="text" id="name" name="name"><br><br>
+                                    
                                     <label for="firstName">First Name:</label>
                                     <input type="text" id="firstName" name="firstName"><br><br>
                                     <label for="lastName">Last Name:</label>
@@ -122,7 +122,7 @@
                                     <input type="text" id="department" name="department"><br><br>
                                     <label for="profilePicture">Profile Picture:</label>
                                     <input type="file" id="profilePicture" name="profilePicture"><br><br>
-                                    <input type="submit" value="Submit">
+                                    <input type="submit" id="submit" value="Submit">
                                 </form>
                             </div>
                             </div>
@@ -134,7 +134,20 @@
                         <div class="employees-container">
                             <div class="employee-grid">
                                 <div id="employeeList">
-
+                                    <div id="editEmployeeModal" class="modal" style="display:none">
+                                        <div class="modal-content">
+                                            <span class="close" id="closeEditModal">x</span>
+                                            <h2>Edit Employee</h2>
+                                            
+                                            <input type="text" id="editFirstName" placeholder="First Name">
+                                            <input type="text" id="editLastName" placeholder="Last Name">
+                                            <input type="text" id="editJobTitle" placeholder="Job Title">
+                                            <input type="text" id="editDepartment" placeholder="Department">
+                                            <input type="text" id="editLocation" placeholder="Location">
+                                            
+                                            <button id="saveEdit">Save</button>
+                                        </div>
+                                    </div>
 
                                 </div>
 
