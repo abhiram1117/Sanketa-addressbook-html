@@ -90,7 +90,9 @@
         }
         #jobTitleListHidden li{
             color:gray;
+            cursor:pointer;
         }
+        
         .job-titles a{
             color:#19b7fc;
             font-size:14px;
