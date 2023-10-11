@@ -1,14 +1,14 @@
 // displaying Employee details
 
 let employees = [
-    { profilePhoto: 'images/dp1.png',  name: 'Anthony Morris', jobTitle: 'SharePoint Practice Head', department: 'IT', profileURL: '1.html', location:'Seattle' },
-    { profilePhoto: 'images/dp2.png', name: 'Helen Zimmerman', jobTitle: 'Operatons Manager', department: 'IT', profileURL: '2.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp3.png', name: 'Joanthon Smith', jobTitle: 'Product Manager', department: 'IT', profileURL: '3.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp4.png', name: 'Tami Hopkins', jobTitle: 'Lead Engineer', department: 'IT', profileURL: '4.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp5.png', name: 'Franklin Humark', jobTitle: 'Network Engineer', department: 'IT', profileURL: '5.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp6.png', name: 'Angela Bailey', jobTitle: 'Talent Manager', department: 'HR', profileURL: '6.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp7.png', name: 'Robert Mitchell', jobTitle: 'Software Engineer', department: 'IT', profileURL: '7.html', location: 'Seattle' },
-    { profilePhoto: 'images/dp8.png', name: 'Olivia Watson', jobTitle: 'UI Designer', department: 'UX', profileURL: '8.html', location: 'India' },
+    { profilePhoto: 'images/dp1.png',name:'Anthony Morris', firstName: 'Anthony',lastName: 'Morris', jobTitle: 'SharePoint Practice Head', department: 'IT', profileURL: '1.html', location:'Seattle' },
+    { profilePhoto: 'images/dp2.png',name:'Helen Zimmerman', firstName: 'Helen', lastName: ' Zimmerman', jobTitle: 'Operatons Manager', department: 'IT', profileURL: '2.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp3.png', name: 'Joanthon Smith', firstName: 'Joanthon', lastName: ' Smith', jobTitle: 'Product Manager', department: 'IT', profileURL: '3.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp4.png', name: 'Tami Hopkins', firstName: 'Tami', lastName: ' Hopkins', jobTitle: 'Lead Engineer', department: 'IT', profileURL: '4.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp5.png', name: 'Franklin Humark', firstName: 'Franklin', lastName: ' Humark', jobTitle: 'Network Engineer', department: 'IT', profileURL: '5.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp6.png', name: 'Angela Bailey', firstName: 'Angela', lastName: ' Bailey', jobTitle: 'Talent Manager', department: 'HR', profileURL: '6.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp7.png', name: 'Robert Mitchell', firstName: 'Robert', lastName: ' Mitchell', jobTitle: 'Software Engineer', department: 'IT', profileURL: '7.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp8.png', name: 'Olivia Watson', firstName: 'Olivia', lastName: ' Watson', jobTitle: 'UI Designer', department: 'UX', profileURL: '8.html', location: 'India' },
 ];
 
 
@@ -64,18 +64,34 @@ function displayEmployees(employeeData) {
     });
 }
 // searching employees function
+//function searchEmployees() {
+//    const searchInput = document.getElementById('searchInput');
+//    const searchTerm = searchInput.value.toLowerCase();
+
+//    const filteredEmployees = employees.filter(employee =>
+//        employee.name.toLowerCase().includes(searchTerm) ||
+//        employee.jobTitle.toLowerCase().includes(searchTerm) ||
+//        employee.department.toLowerCase().includes(searchTerm)
+//    );
+
+//    displayEmployees(filteredEmployees);
+//}
+
+// searching employees function
 function searchEmployees() {
+    const searchOption = document.getElementById('searchOption').value;
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput.value.toLowerCase();
 
-    const filteredEmployees = employees.filter(employee =>
-        employee.name.toLowerCase().includes(searchTerm) ||
-        employee.jobTitle.toLowerCase().includes(searchTerm) ||
-        employee.department.toLowerCase().includes(searchTerm)
+    const matchingEmployees = employees.filter(employee =>
+        employee[searchOption].toLowerCase().includes(searchTerm)
     );
 
-    displayEmployees(filteredEmployees);
+    displayEmployees(matchingEmployees);
 }
+document.getElementById('searchInput').addEventListener('input', searchEmployees);
+document.getElementById('searchOption').addEventListener('change', searchEmployees);
+
 // Clearing searchbox
 function clearSearch() {
     const searchInput = document.getElementById('searchInput');
