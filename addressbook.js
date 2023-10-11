@@ -400,13 +400,16 @@ function addEmployee(newEmployee) {
 document.getElementById('employeeForm').addEventListener('submit', function (event) {
     event.preventDefault(); 
 
-
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
     const name = document.getElementById('name').value;
     const jobTitle = document.getElementById('jobTitle').value;
     const department = document.getElementById('department').value;
 
 
     const newEmployee = {
+        firstName: firstName,
+        lastName: lastName,
         name: name,
         jobTitle: jobTitle,
         department: department
