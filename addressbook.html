@@ -28,63 +28,52 @@
                 <div class="departments">
                     <h1>Departments</h1>
 
-                    <ul>
-                        <li><a href="#it">IT (21)</a></li>
-                        <li><a href="#humanresources">Human Resources (2)</a></li>
-                        <li><a href="#md">MD (1)</a></li>
-                        <li><a href="#sales">Sales (4)</a></li>
-                    </ul>
+                    <ul id="departmentList"> </ul>
 
                 </div>
                 <div class="offices">
                     <h1>Offices</h1>
                     <ul>
-                        <li><a href="#seattle">Seattle (1)</a></li>
-                        <li><a href="#india">India (1)</a></li>
+                        <li><a href="#seattle">Seattle (8)</a></li>
+                        <li><a href="#india">India (0)</a></li>
                     </ul>
                 </div>
                 <div class="job-titles">
                     <h1>Job Titles</h1>
-                    <ul>
-                        <li><a href="#sph">SharePoint Practice Head (1)</a></li>
-                        <li><a href="#dl">.Net Developer Lead (1)</a></li>
-                        <li><a href="#re">Recruiting Expert (1)</a></li>
-                        <li><a href="#bd">BI Developer (1)</a></li>
-                        <li><a href="#ba">Business Analyst (1)</a></li>
-                    </ul>
+                    <ul id="jobTitleList"></ul>
                     <div class="viewmore"><a href="#viewmore">view more</a></div>
                 </div>
             </div>
 
             <div class="right-container">
                 <nav class="alphabet-container">
-                    <a class="alphabet-box" href="#a"><i class="fas fa-user"></i></a>
-                    <a class="alphabet-box" href="#a">A</a>
-                    <a class="alphabet-box" href="#b">B</a>
-                    <a class="alphabet-box" href="#c">C</a>
-                    <a class="alphabet-box" href="#d">D</a>
-                    <a class="alphabet-box" href="#e">E</a>
-                    <a class="alphabet-box" href="#f">F</a>
-                    <a class="alphabet-box" href="#g">G</a>
-                    <a class="alphabet-box" href="#h">H</a>
-                    <a class="alphabet-box" href="#i">I</a>
-                    <a class="alphabet-box" href="#j">J</a>
-                    <a class="alphabet-box" href="#k">K</a>
-                    <a class="alphabet-box" href="#l">L</a>
-                    <a class="alphabet-box" href="#m">M</a>
-                    <a class="alphabet-box" href="#n">N</a>
-                    <a class="alphabet-box" href="#o">O</a>
-                    <a class="alphabet-box" href="#p">P</a>
-                    <a class="alphabet-box" href="#q">Q</a>
-                    <a class="alphabet-box" href="#r">R</a>
-                    <a class="alphabet-box" href="#s">S</a>
-                    <a class="alphabet-box" href="#t">T</a>
-                    <a class="alphabet-box" href="#u">U</a>
-                    <a class="alphabet-box" href="#v">V</a>
-                    <a class="alphabet-box" href="#w">W</a>
-                    <a class="alphabet-box" href="#x">X</a>
-                    <a class="alphabet-box" href="#y">Y</a>
-                    <a class="alphabet-box" href="#z">Z</a>
+                    <button class="alphabet-box" type="button" onclick="displayEmployees(employees)" ><i class="fas fa-user"></i></button>
+                    <button class="alphabet-box" id="nameA">A</button>
+                    <button class="alphabet-box" id="nameB">B</button>
+                    <button class="alphabet-box" id="nameC">C</button>
+                    <button class="alphabet-box" id="nameD">D</button>
+                    <button class="alphabet-box" id="nameE">E</button>
+                    <button class="alphabet-box" id="nameF">F</button>
+                    <button class="alphabet-box" id="nameG">G</button>
+                    <button class="alphabet-box" id="nameH">H</button>
+                    <button class="alphabet-box" id="nameI">I</button>
+                    <button class="alphabet-box" id="nameJ">J</button>
+                    <button class="alphabet-box" id="nameK">K</button>
+                    <button class="alphabet-box" id="nameL">L</button>
+                    <button class="alphabet-box" id="nameM">M</button>
+                    <button class="alphabet-box" id="nameN">N</button>
+                    <button class="alphabet-box" id="nameO">O</button>
+                    <button class="alphabet-box" id="nameP">P</button>
+                    <button class="alphabet-box" id="nameQ">Q</button>
+                    <button class="alphabet-box" id="nameR">R</button>
+                    <button class="alphabet-box" id="nameS">S</button>
+                    <button class="alphabet-box" id="nameT">T</button>
+                    <button class="alphabet-box" id="nameU">U</button>
+                    <button class="alphabet-box" id="nameV">V</button>
+                    <button class="alphabet-box" id="nameW">W</button>
+                    <button class="alphabet-box" id="nameX">X</button>
+                    <button class="alphabet-box" id="nameY">Y</button>
+                    <button class="alphabet-box" id="nameZ">Z</button>
 
 
                 </nav>
@@ -94,8 +83,8 @@
                         <p>Search</p>
                         <div class="searchbar">
                             <p><i class="fas fa-search"></i></p>
-                            <input type="text" id="searchInput" placeholder="Enter any keyword" name="search">
-                            <ul id="searchResults"></ul>
+                            <input type="text" id="searchInput"  placeholder="Enter any keyword" name="search">
+                            
                         </div>
                         
                         <button type="reset">Clear</button>
@@ -108,42 +97,46 @@
                             <form action="/action_page.php">
                                 <select name="filter">
                                     <option value="">Preferred Name</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    <option value="1">First Name</option>
+                                    <option value="2">Last Name</option>
                                 </select>
                             </form>
                         </div>
                     </div>
                     <div class="add-employee">
-                        <button type="button" onclick="AddEmployee()">Add Employee</button>
-                        <form id="employeeForm" style="display: none;">
-                            <label for="name">Name:</label>
-                            <input type="text" id="name" name="name"><br><br>
-                            <label for="jobTitle">Job Title:</label>
-                            <input type="text" id="jobTitle" name="jobTitle"><br><br>
-                            <label for="department">Department:</label>
-                            <input type="text" id="department" name="department"><br><br>
-                            <label for="profilePicture">Profile Picture:</label>
-                            <input type="file" id="profilePicture" name="profilePicture"><br><br>
-                            <input type="submit" value="Submit">
-                        </form>
-                    </div>
-                </div>
-                <div class="note-container">
-                    <p><b>Note:</b> Please use the advanced filter options refine your results. </p>
-                </div>
-                <div class="employees-container">
-                    <div class="employee-grid">
-                        <div id="employeeList">
-
+                        <button type="button"  onclick="AddEmployee()">Add Employee</button>
+                        <div class="modal-overlay" id="modalOverlay">
                             
+                            <div class="modal-content">
+                                <button class="close-button" onclick="closeModal()">×</button>
+                                <form id="employeeForm">
+                                    <label for="name">Name:</label>
+                                    <input type="text" id="name" name="name"><br><br>
+                                    <label for="jobTitle">Job Title:</label>
+                                    <input type="text" id="jobTitle" name="jobTitle"><br><br>
+                                    <label for="department">Department:</label>
+                                    <input type="text" id="department" name="department"><br><br>
+                                    <label for="profilePicture">Profile Picture:</label>
+                                    <input type="file" id="profilePicture" name="profilePicture"><br><br>
+                                    <input type="submit" value="Submit">
+                                </form>
+                            </div>
+                            </div>
                         </div>
+                        </div>
+                        <div class="note-container">
+                            <p><b>Note:</b> Please use the advanced filter options refine your results. </p>
+                        </div>
+                        <div class="employees-container">
+                            <div class="employee-grid">
+                                <div id="employeeList">
 
+
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-            </div>
              
         </div>
     </div>
