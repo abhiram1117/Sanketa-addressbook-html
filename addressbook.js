@@ -1,14 +1,14 @@
 // displaying Employee details
 
 let employees = [
-    { profilePhoto: 'images/dp1.png',  name: 'Anthony Morris', jobTitle: 'SharePoint Practice Head', department: 'IT', profileURL: '1.html' },
-    { profilePhoto: 'images/dp2.png', name: 'Helen Zimmerman', jobTitle: 'Operatons Manager', department: 'IT', profileURL: '2.html' },
-    { profilePhoto: 'images/dp3.png', name: 'Joanthon Smith', jobTitle: 'Product Manager', department: 'IT', profileURL: '3.html' },
-    { profilePhoto: 'images/dp4.png', name: 'Tami Hopkins', jobTitle: 'Lead Engineer', department: 'IT', profileURL: '4.html' },
-    { profilePhoto: 'images/dp5.png', name: 'Franklin Humark', jobTitle: 'Network Engineer', department: 'IT', profileURL: '5.html' },
-    { profilePhoto: 'images/dp6.png', name: 'Angela Bailey', jobTitle: 'Talent Manager', department: 'HR', profileURL: '6.html' },
-    { profilePhoto: 'images/dp7.png', name: 'Robert Mitchell', jobTitle: 'Software Engineer', department: 'IT', profileURL: '7.html' },
-    { profilePhoto: 'images/dp8.png', name: 'Olivia Watson', jobTitle: 'UI Designer', department: 'UX', profileURL: '8.html' },
+    { profilePhoto: 'images/dp1.png',  name: 'Anthony Morris', jobTitle: 'SharePoint Practice Head', department: 'IT', profileURL: '1.html', location:'Seattle' },
+    { profilePhoto: 'images/dp2.png', name: 'Helen Zimmerman', jobTitle: 'Operatons Manager', department: 'IT', profileURL: '2.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp3.png', name: 'Joanthon Smith', jobTitle: 'Product Manager', department: 'IT', profileURL: '3.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp4.png', name: 'Tami Hopkins', jobTitle: 'Lead Engineer', department: 'IT', profileURL: '4.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp5.png', name: 'Franklin Humark', jobTitle: 'Network Engineer', department: 'IT', profileURL: '5.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp6.png', name: 'Angela Bailey', jobTitle: 'Talent Manager', department: 'HR', profileURL: '6.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp7.png', name: 'Robert Mitchell', jobTitle: 'Software Engineer', department: 'IT', profileURL: '7.html', location: 'Seattle' },
+    { profilePhoto: 'images/dp8.png', name: 'Olivia Watson', jobTitle: 'UI Designer', department: 'UX', profileURL: '8.html', location: 'India' },
 ];
 
 
@@ -63,6 +63,7 @@ function displayEmployees(employeeData) {
         employeeList.appendChild(employeeCard);
     });
 }
+// searching employees function
 function searchEmployees() {
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput.value.toLowerCase();
@@ -75,6 +76,13 @@ function searchEmployees() {
 
     displayEmployees(filteredEmployees);
 }
+// Clearing searchbox
+function clearSearch() {
+    const searchInput = document.getElementById('searchInput');
+    searchInput.value = ''; 
+    displayEmployees(employees); 
+}
+
 
 function employeesByNameA() {
     const employeesStartingWithA = employees.filter(employee =>
@@ -359,7 +367,7 @@ function AddEmployee() {
 }
 function closeModal() {
     employeeForm.style.display = 'none';
-    
+    displayEmployees(employees)
 }
 
 
@@ -398,47 +406,166 @@ document.getElementById('employeeForm').addEventListener('submit', function (eve
     document.getElementById('employeeForm').reset();
 
 });
+// Function to filter employees by department
+function filterEmployeesByDepartment(selectedDepartment) {
+    const employeesInDepartment = employees.filter(employee =>
+        employee.department === selectedDepartment
+    );
 
-function displayCounts() {
-    const departmentList = document.getElementById('departmentList');
-    const jobTitleList = document.getElementById('jobTitleList');
-
-    const departmentCounts = {};
-    const jobTitleCounts = {};
-
-    employees.forEach(employee => {
-        
-        if (!departmentCounts[employee.department]) {
-            departmentCounts[employee.department] = 1;
-        } else {
-            departmentCounts[employee.department]++;
-        }
-
-        if (!jobTitleCounts[employee.jobTitle]) {
-            jobTitleCounts[employee.jobTitle] = 1;
-        } else {
-            jobTitleCounts[employee.jobTitle]++;
-        }
-    });
-
-    departmentList.innerHTML = '';
-    jobTitleList.innerHTML = '';
-
-    for (const department in departmentCounts) {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${department} (${departmentCounts[department]})`;
-        departmentList.appendChild(listItem);
-    }
-
-    for (const jobTitle in jobTitleCounts) {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${jobTitle} (${jobTitleCounts[jobTitle]})`;
-        jobTitleList.appendChild(listItem);
-    }
+    displayEmployees(employeesInDepartment);
 }
 
+// Function to filter employees by job title
+function filterEmployeesByJobTitle(selectedJobTitle) {
+    const employeesWithJobTitle = employees.filter(employee =>
+        employee.jobTitle === selectedJobTitle
+    );
 
-displayCounts();
+    displayEmployees(employeesWithJobTitle);
+}
+
+// Function to filter employees by location
+function filterEmployeesByLocation(selectedLocation) {
+    const employeesAtLocation = employees.filter(employee =>
+        employee.location === selectedLocation
+    );
+
+    displayEmployees(employeesAtLocation);
+}
+
+// Function to update the lists (departments, job titles, and locations) with counts
+function updateFilterLists() {
+   const departmentList = document.getElementById('departmentList');
+   const jobTitleList = document.getElementById('jobTitleList');
+   const jobTitleListHidden = document.getElementById('jobTitleListHidden');
+   const viewMoreJobTitles = document.getElementById('viewMoreJobTitles');
+
+   const departmentCounts = {};
+   const jobTitleCounts = {};
+   const locationCounts = {};
+
+   employees.forEach(employee => {
+       
+       const department = employee.department;
+       departmentCounts[department] = (departmentCounts[department] || 0) + 1;
+
+       
+       const jobTitle = employee.jobTitle;
+       jobTitleCounts[jobTitle] = (jobTitleCounts[jobTitle] || 0) + 1;
+
+       
+       const location = employee.location;
+       locationCounts[location] = (locationCounts[location] || 0) + 1;
+   });
+
+   
+   departmentList.innerHTML = '';
+   jobTitleList.innerHTML = '';
+   jobTitleListHidden.innerHTML = '';
+
+   // Creating list items for each department with counts
+   for (const department in departmentCounts) {
+       const listItem = document.createElement('li');
+       listItem.textContent = `${department} (${departmentCounts[department]})`;
+       listItem.addEventListener('click', () => filterEmployeesByDepartment(department));
+       departmentList.appendChild(listItem);
+    }
+    for (const location in locationCounts) {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${location} (${locationCounts[location]})`;
+        listItem.addEventListener('click', () => filterEmployeesByLocation(location));
+        locationList.appendChild(listItem);
+    }
+
+   // showing 3 filters
+   const jobTitles = Object.keys(jobTitleCounts);
+   jobTitles.slice(0, 3).forEach(jobTitle => {
+       const listItem = document.createElement('li');
+       listItem.textContent = jobTitle;
+       listItem.addEventListener('click', () => filterEmployeesByJobTitle(jobTitle));
+       jobTitleList.appendChild(listItem);
+   });
+
+   // hiding the filters
+   jobTitles.slice(3).forEach(jobTitle => {
+       const listItem = document.createElement('li');
+       listItem.textContent = jobTitle;
+       listItem.addEventListener('click', () => filterEmployeesByJobTitle(jobTitle));
+       jobTitleListHidden.appendChild(listItem);
+   });
+
+   
+   viewMoreJobTitles.addEventListener('click', () => {
+       if (jobTitleListHidden.style.display === 'none') {
+           jobTitleListHidden.style.display = 'block';
+           viewMoreJobTitles.textContent = 'View Less';
+       } else {
+           jobTitleListHidden.style.display = 'none';
+           viewMoreJobTitles.textContent = 'View More';
+       }
+   });
+}
+updateFilterLists();
+
+
+//function toggleJobTitleFilters() {
+//    const jobTitleList = document.getElementById('jobTitleList');
+
+//    // Check if job titles are currently hidden
+//    if (jobTitleList.classList.contains('hidden')) {
+//        jobTitleList.classList.remove('hidden');
+//    } else {
+//        jobTitleList.classList.add('hidden');
+//    }
+//}
+//const jobTitleList = document.getElementById('jobTitleList');
+//jobTitleList.classList.add('hidden');
+//const viewMoreJobTitlesButton = document.getElementById('viewMoreJobTitles');
+//viewMoreJobTitlesButton.addEventListener('click', toggleJobTitleFilters);
+
+//    for (const department in departmentCounts) {
+//        const listItem = document.createElement('li');
+//        const departmentLink = document.createElement('a');
+//        departmentLink.href = 'javascript:void(0)';
+//        departmentLink.textContent = `${department} (${departmentCounts[department]})`;
+//        departmentLink.addEventListener('click', function () {
+//            displayEmployeesByCategory('department', department);
+//        });
+//        listItem.appendChild(departmentLink);
+//        departmentList.appendChild(listItem);
+//    }
+
+//    for (const jobTitle in jobTitleCounts) {
+//        const listItem = document.createElement('li');
+//        const jobTitleLink = document.createElement('a');
+//        jobTitleLink.href = 'javascript:void(0)';
+//        jobTitleLink.textContent = `${jobTitle}: ${jobTitleCounts[jobTitle]} employees`;
+//        jobTitleLink.addEventListener('click', function () {
+//            displayEmployeesByCategory('jobTitle', jobTitle);
+//        });
+//        listItem.appendChild(jobTitleLink);
+//        jobTitleList.appendChild(listItem);
+//    }
+
+//}
+//function filterEmployeesByDepartment(department) {
+//    const employeesInDepartment = employees.filter(employee =>
+//        employee.department === department
+//    );
+
+//    displayEmployees(employeesInDepartment);
+//}
+//function employeesByNameZ() {
+//    const employeesStartingWithZ = employees.filter(employee =>
+//        employee.name.toLowerCase().startsWith('z')
+//    );
+
+//    displayEmployees(employeesStartingWithZ);
+//}
+
+
+//displayCounts();
+
 
 //function calculateDepartmentCounts(employees) {
 //    // Create an object to store department counts

@@ -77,10 +77,29 @@
         #departmentList li{
             margin-left:3px;
             color:gray;
+            cursor:pointer;
         }
         #jobTitleList li{
             margin-left:3px;
             color:gray;
+            cursor:pointer;
+        }
+        #jobTitleListHidden{
+            display:none;
+            margin-top:-5px;
+        }
+        #jobTitleListHidden li{
+            color:gray;
+        }
+        .job-titles a{
+            color:#19b7fc;
+            font-size:14px;
+            cursor:pointer;
+        }
+        #locationList li{
+            margin-left:3px;
+            color:gray;
+            cursor:pointer;
         }
         .viewmore a{
             color:#19b7fc;

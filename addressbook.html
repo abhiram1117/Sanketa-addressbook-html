@@ -33,15 +33,15 @@
                 </div>
                 <div class="offices">
                     <h1>Offices</h1>
-                    <ul>
-                        <li><a href="#seattle">Seattle (8)</a></li>
-                        <li><a href="#india">India (0)</a></li>
+                    <ul id="locationList">
+                        
                     </ul>
                 </div>
                 <div class="job-titles">
                     <h1>Job Titles</h1>
                     <ul id="jobTitleList"></ul>
-                    <div class="viewmore"><a href="#viewmore">view more</a></div>
+                    <ul id="jobTitleListHidden"></ul>
+                    <a id="viewMoreJobTitles">View More</a>
                 </div>
             </div>
 
@@ -87,7 +87,7 @@
                             
                         </div>
                         
-                        <button type="reset">Clear</button>
+                        <button id="clearButton" onclick="clearSearch()">Clear</button>
 
 
                     </div>
