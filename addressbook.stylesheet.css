@@ -252,13 +252,24 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
             z-index: 1001;
         }
-
+        #employeeForm button{
+            background-color:white;
+            color:black;
+            font-size:20px;
+            padding:0;
+        }
         
         .close-button {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 240px;
+            right: 525px;
             cursor: pointer;
+        }
+        .adding-form button{
+            background-color:white;
+            color:black;
+            font-size:20px;
+            padding:0
         }
         #employeeForm{
         }
@@ -324,29 +335,29 @@
         }
 
 .modal {
-    display: none; /* Hidden by default */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.7); 
     z-index: 1;
     overflow: auto;
 }
 
-/* Styles for the modal content */
+
 .modal-content {
-    background-color: #fefefe;
-    margin: 10% auto; /* Centered vertically and horizontally */
+    background-color:white;
+    margin: 10% auto; 
     padding: 20px;
-    border: 1px solid #888;
+    border:1px solid black;
     border-radius: 5px;
-    max-width: 400px; /* Set the maximum width of the modal */
+    max-width: 400px; 
     position: relative;
 }
 
-/* Styles for the close button */
+
 .close {
     position: absolute;
     top: 0;

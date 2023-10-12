@@ -105,11 +105,11 @@
                         </div>
                     </div>
                     <div class="add-employee">
-                        <button type="button"  onclick="AddEmployee()">Add Employee</button>
+                        <button type="button"  onclick="openForm()">Add Employee</button>
                         <div class="modal-overlay" id="modalOverlay">
                             
-                            <div class="modal-content">
-                                <button class="close-button" onclick="closeModal()">×</button>
+                            <div class="adding-form">
+                                <button class="close-button" id="closeForm" onclick="closeModal()">×</button>
                                 <form id="employeeForm">
                                     
                                     <label for="firstName">First Name:</label>
@@ -122,7 +122,7 @@
                                     <input type="text" id="department" name="department"><br><br>
                                     <label for="profilePicture">Profile Picture:</label>
                                     <input type="file" id="profilePicture" name="profilePicture"><br><br>
-                                    <input type="submit" id="submit" value="Submit">
+                                    <input type="submit" id="submitEmployeeForm" value="submit">
                                 </form>
                             </div>
                             </div>
@@ -134,23 +134,28 @@
                         <div class="employees-container">
                             <div class="employee-grid">
                                 <div id="employeeList">
-                                    <div id="editEmployeeModal" class="modal" style="display:none">
-                                        <div class="modal-content">
-                                            <span class="close" id="closeEditModal">x</span>
-                                            <h2>Edit Employee</h2>
-                                            
-                                            <input type="text" id="editFirstName" placeholder="First Name">
-                                            <input type="text" id="editLastName" placeholder="Last Name">
-                                            <input type="text" id="editJobTitle" placeholder="Job Title">
-                                            <input type="text" id="editDepartment" placeholder="Department">
-                                            <input type="text" id="editLocation" placeholder="Location">
-                                            
-                                            <button id="saveEdit">Save</button>
-                                        </div>
-                                    </div>
+
 
                                 </div>
+                                <div id="editEmployeeModal" class="modal" style="display:none">
+                                    <div class="modal-content">
+                                        <span class="close" id="closeEditModal">x</span>
+                                        <h2>Edit Employee</h2>
+                                        <form>
+                                            <label for="firstName">First Name:</label>
+                                            <input type="text" id="editFirstName" placeholder="First Name"><br /><br />
+                                            <label for="lastName">Last Name:</label>
+                                            <input type="text" id="editLastName" placeholder="Last Name"><br /><br />
+                                            <label for="jobTitle">Job Title:</label>
+                                            <input type="text" id="editJobTitle" placeholder="Job Title"><br /><br />
+                                            <label for="department">Department:</label>
+                                            <input type="text" id="editDepartment" placeholder="Department"><br /><br />
 
+
+                                            <button id="saveEdit">Save</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
