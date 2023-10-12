@@ -49,33 +49,6 @@
                 <nav class="alphabet-container">
                     <button class="alphabet-box" type="button" onclick="displayEmployees(employees)" ><i class="fas fa-user"></i></button>
                     <div id="alphabetButtons"></div>
-                   <!-- <button class="alphabet-box" id="nameA">A</button>
-                    <button class="alphabet-box" id="nameB">B</button>
-                    <button class="alphabet-box" id="nameC">C</button>
-                    <button class="alphabet-box" id="nameD">D</button>
-                    <button class="alphabet-box" id="nameE">E</button>
-                    <button class="alphabet-box" id="nameF">F</button>
-                    <button class="alphabet-box" id="nameG">G</button>
-                    <button class="alphabet-box" id="nameH">H</button>
-                    <button class="alphabet-box" id="nameI">I</button>
-                    <button class="alphabet-box" id="nameJ">J</button>
-                    <button class="alphabet-box" id="nameK">K</button>
-                    <button class="alphabet-box" id="nameL">L</button>
-                    <button class="alphabet-box" id="nameM">M</button>
-                    <button class="alphabet-box" id="nameN">N</button>
-                    <button class="alphabet-box" id="nameO">O</button>
-                    <button class="alphabet-box" id="nameP">P</button>
-                    <button class="alphabet-box" id="nameQ">Q</button>
-                    <button class="alphabet-box" id="nameR">R</button>
-                    <button class="alphabet-box" id="nameS">S</button>
-                    <button class="alphabet-box" id="nameT">T</button>
-                    <button class="alphabet-box" id="nameU">U</button>
-                    <button class="alphabet-box" id="nameV">V</button>
-                    <button class="alphabet-box" id="nameW">W</button>
-                    <button class="alphabet-box" id="nameX">X</button>
-                    <button class="alphabet-box" id="nameY">Y</button>
-                    <button class="alphabet-box" id="nameZ">Z</button>    -->
-
 
                 </nav>
 
@@ -107,21 +80,48 @@
                     <div class="add-employee">
                         <button type="button"  onclick="openForm()">Add Employee</button>
                         <div class="modal-overlay" id="modalOverlay">
-                            
                             <div class="adding-form">
-                                <button class="close-button" id="closeForm" onclick="closeModal()">×</button>
                                 <form id="employeeForm">
-                                    
-                                    <label for="firstName">First Name:</label>
-                                    <input type="text" id="firstName" name="firstName" pattern="[A-Za-z]+" required><br><br>
-                                    <label for="lastName">Last Name:</label>
-                                    <input type="text" id="lastName" name="lastName"pattern="[A-Za-z]+" required><br><br>
-                                    <label for="jobTitle">Job Title:</label>
-                                    <input type="text" id="jobTitle" name="jobTitle"pattern="[A-Za-z]+" required><br><br>
-                                    <label for="department">Department:</label>
-                                    <input type="text" id="department" name="department"pattern="[A-Za-z]+" required><br><br>
-                                    <label for="profilePicture">Profile Picture:</label>
-                                    <input type="file" id="profilePicture" name="profilePicture"pattern="[A-Za-z]+" required><br><br>
+                                    <button class="close-button" id="closeForm" onclick="closeModal()">×</button>
+
+
+                                    <div class="form-display">
+                                        <label for="firstName">First Name:</label>
+                                        <input type="text" id="firstName" name="firstName" required>
+                                    </div>
+                                    <p class="error" id="firstNameError">Please enter only alphabets.</p>
+                                    <div class="form-display">
+                                        <label for="lastName">Last Name:</label>
+                                        <input type="text" id="lastName" name="lastName" required>
+                                    </div>
+                                    <p class="error" id="lastNameError">Please enter only alphabets.</p>
+                                    <div class="form-display">
+                                        <label for="jobTitle">Job Title:</label>
+                                        <select type="text" id="jobTitle" name="jobTitle" required>
+                                            <option>Select Job title</option>
+                                            <option>SharePoint Practice Head</option>
+                                            <option>Operatons Manager</option>
+                                            <option>Product Manager</option>
+                                            <option>Lead Engineer</option>
+                                            <option>Network Engineer</option>
+                                            <option>Talent Manager</option>
+                                            <option>Software Engineer</option>
+                                            <option>UI Designer</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-display">
+                                        <label for="department">Department:</label>
+                                        <select type="text" id="department" name="department" required>
+                                            <option>IT</option>
+                                            <option>HR</option>
+                                            <option>UX</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-display">
+                                        <label for="profilePicture">Profile Picture:</label>
+                                        <input type="file" id="profilePicture" name="profilePicture" />
+                                    </div>
                                     <input type="submit" id="submitEmployeeForm" value="submit">
                                 </form>
                             </div>
@@ -129,7 +129,7 @@
                         </div>
                         </div>
                         <div class="note-container">
-                            <p><b>Note:</b> Please use the advanced filter options refine your results. </p>
+                            <p><b>Note:</b> Please use the advanced filter options to refine your results. </p>
                         </div>
                         <div class="employees-container">
                             <div class="employee-grid">
@@ -147,9 +147,22 @@
                                             <label for="lastName">Last Name:</label>
                                             <input type="text" id="editLastName" placeholder="Last Name"><br /><br />
                                             <label for="jobTitle">Job Title:</label>
-                                            <input type="text" id="editJobTitle" placeholder="Job Title"><br /><br />
+                                            <select type="text" id="editJobTitle" placeholder="Job Title">
+                                                <option>SharePoint Practice Head</option>
+                                                <option>Operatons Manager</option>
+                                                <option>Product Manager</option>
+                                                <option>Lead Engineer</option>
+                                                <option>Network Engineer</option>
+                                                <option>Talent Manager</option>
+                                                <option>Software Engineer</option>
+                                                <option>UI Designer</option>
+                                            </select><br /><br />
                                             <label for="department">Department:</label>
-                                            <input type="text" id="editDepartment" placeholder="Department"><br /><br />
+                                            <select type="text" id="editDepartment" placeholder="Department">
+                                                <option>IT</option>
+                                                <option>HR</option>
+                                                <option>UX</option>
+                                            </select><br /><br />
 
 
                                             <button id="saveEdit">Save</button>

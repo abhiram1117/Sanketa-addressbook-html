@@ -1,5 +1,3 @@
-// displaying Employee details
-
 let employees = [
     { id: '1', profilePhoto: 'images/dp1.png', firstName: 'Anthony', lastName: 'Morris', jobTitle: 'SharePoint Practice Head', department: 'IT', profileURL: '1.html', location: 'Seattle'},
     { id: '2', profilePhoto: 'images/dp2.png', firstName: 'Helen', lastName: ' Zimmerman', jobTitle: 'Operatons Manager', department: 'IT', profileURL: '2.html', location: 'Seattle' },
@@ -14,7 +12,6 @@ let employees = [
 const employeeList = document.getElementById('employeeList');
 const editModal = document.getElementById('editEmployeeModal');
 const closeEditModalButton = document.getElementById('closeEditModal');
-const employeeCards = document.querySelectorAll('.employee-card');
 let selectedEmployee;
 
 function displayEmployees(employeeData) {
@@ -29,7 +26,7 @@ function displayEmployees(employeeData) {
                <p>${employee.jobTitle}<br>${employee.department} department</p>
                <i class="fas fa-phone-square-alt"> </i><i class="fas fa-envelope"> </i><i class="fas fa-comment"> </i><i class="fas fa-star"> </i><i class="fas fa-heart"></i>        
        `;
-        employeeList.appendChild(employeeCard);
+        employeeList.append(employeeCard);
         employeeCard.addEventListener('click', function () {
             openEditEmployeeModal(employees[index]);
         });
@@ -44,7 +41,6 @@ function openEditEmployeeModal(employee) {
     document.getElementById('editLastName').value = employee.lastName;
     document.getElementById('editJobTitle').value = employee.jobTitle;
     document.getElementById('editDepartment').value = employee.department;
-    
 }
 
 document.getElementById('saveEdit').addEventListener('click', function (event) {
@@ -63,31 +59,25 @@ function saveEmployeeEdits(event) {
     employee.lastName = document.getElementById('editLastName').value;
     employee.jobTitle = document.getElementById('editJobTitle').value;
     employee.department = document.getElementById('editDepartment').value;
-    
     closeEditEmployeeModal();
-    console.log("Before Displaying:", employees);
+    updateFilterLists()
     displayEmployees(employees);
-    console.log("After Displaying:", employees);
 }
 
 closeEditModalButton.addEventListener('click', closeEditEmployeeModal);
-
 
 function searchEmployees() {
     const searchOption = document.getElementById('searchOption').value;
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput.value.toLowerCase();
-
     const matchingEmployees = employees.filter(employee =>
         employee[searchOption].toLowerCase().includes(searchTerm)
     );
-
     displayEmployees(matchingEmployees);
 }
 document.getElementById('searchInput').addEventListener('input', searchEmployees);
 document.getElementById('searchOption').addEventListener('change', searchEmployees);
 
-// Clearing searchbox
 function clearSearch() {
     const searchInput = document.getElementById('searchInput');
     searchInput.value = ''; 
@@ -118,35 +108,33 @@ const employeeForm = document.getElementById('modalOverlay');
 
 function openForm() {
     employeeForm.style.display = 'block';
+    document.getElementById('employeeForm').reset();
 }
 function closeModal() {
     employeeForm.style.display = 'none';
     displayEmployees(employees)
 }
-
-// adding new employee to saved employees list
-function addEmployee(newEmployee) {
-    employees.push(newEmployee);
-   
-}
-
-document.getElementById('employeeForm').addEventListener('submit', function (event) {
-    event.preventDefault(); 
-
+document.getElementById('submitEmployeeForm').addEventListener('click', function (event) {
     const firstName = document.getElementById('firstName').value;
     const lastName = document.getElementById('lastName').value;
     const jobTitle = document.getElementById('jobTitle').value;
     const department = document.getElementById('department').value;
-
-    if (!firstName || !lastName || !jobTitle || !department) {
-        alert('Please fill in all fields.');
-        return;
-    }
     const lettersOnly = /^[A-Za-z]+$/;
-    if (!lettersOnly.test(firstName) || !lettersOnly.test(lastName) || !lettersOnly.test(jobTitle) || !lettersOnly.test(department)) {
-        alert('Please enter only letters in the fields.');
+
+    if (!lettersOnly.test(firstName)) {
+        document.getElementById('firstNameError').style.display = 'block';
         return;
+    } else {
+        document.getElementById('firstNameError').style.display = 'none';
     }
+
+    if (!lettersOnly.test(lastName)) {
+        document.getElementById('lastNameError').style.display = 'block';
+        return;
+    } else {
+        document.getElementById('lastNameError').style.display = 'none';
+    }
+    
     const newEmployee = {
         firstName: firstName,
         lastName: lastName,
@@ -154,101 +142,79 @@ document.getElementById('employeeForm').addEventListener('submit', function (eve
         department: department,  
     };
     employeeList.innerHTML = '';
-    
-    addEmployee(newEmployee);
+    employees.push(newEmployee);
+    closeModal();
+    event.preventDefault(); 
     displayEmployees(employees); 
-    document.getElementById('employeeForm').reset();
-
 });
-// Function to filter employees by department
-function filterEmployeesByDepartment(selectedDepartment) {
-    const employeesInDepartment = employees.filter(employee =>
-        employee.department === selectedDepartment
-    );
-    displayEmployees(employeesInDepartment);
-}
-
-// Function to filter employees by job title
-function filterEmployeesByJobTitle(selectedJobTitle) {
-    const employeesWithJobTitle = employees.filter(employee =>
-        employee.jobTitle === selectedJobTitle
-    );
-    displayEmployees(employeesWithJobTitle);
-}
-
-// Function to filter employees by location
-function filterEmployeesByLocation(selectedLocation) {
-    const employeesAtLocation = employees.filter(employee =>
-        employee.location === selectedLocation
-    );
-    displayEmployees(employeesAtLocation);
-}
-
-// Function to update the lists (departments, job titles, and locations) with counts
-function updateFilterLists() {
-   const departmentList = document.getElementById('departmentList');
-   const jobTitleList = document.getElementById('jobTitleList');
-   const jobTitleListHidden = document.getElementById('jobTitleListHidden');
-   const viewMoreJobTitles = document.getElementById('viewMoreJobTitles');
-
-   const departmentCounts = {};
-   const jobTitleCounts = {};
-   const locationCounts = {};
-
-   employees.forEach(employee => { 
-       const department = employee.department;
-       departmentCounts[department] = (departmentCounts[department] || 0) + 1;
-       const jobTitle = employee.jobTitle;
-       jobTitleCounts[jobTitle] = (jobTitleCounts[jobTitle] || 0) + 1;
-       const location = employee.location;
-       locationCounts[location] = (locationCounts[location] || 0) + 1;
-   });
-
-   departmentList.innerHTML = '';
-   jobTitleList.innerHTML = '';
-   jobTitleListHidden.innerHTML = '';
-
-   // Creating list items for each department with counts
-   for (const department in departmentCounts) {
-       const listItem = document.createElement('li');
-       listItem.textContent = `${department} (${departmentCounts[department]})`;
-       listItem.addEventListener('click', () => filterEmployeesByDepartment(department));
-       departmentList.appendChild(listItem);
-    }
-    for (const location in locationCounts) {
+// Function to filter employees 
+function createFilterItems(element, elementCounts, filterCriteria, filterList) {
+    for (const key in elementCounts) {
         const listItem = document.createElement('li');
-        listItem.textContent = `${location} (${locationCounts[location]})`;
-        listItem.addEventListener('click', () => filterEmployeesByLocation(location));
-        locationList.appendChild(listItem);
+        listItem.textContent = `${key} (${elementCounts[key]})`;
+        listItem.addEventListener('click', () => {
+            filterAndDisplay(filterCriteria, key);
+            document.getElementById('searchInput').value = "";
+            
+        });
+        filterList.appendChild(listItem);
     }
-
-   // showing 3 filters
-   const jobTitles = Object.keys(jobTitleCounts);
-   jobTitles.slice(0, 3).forEach(jobTitle => {
-       const listItem = document.createElement('li');
-       listItem.textContent = jobTitle;
-       listItem.addEventListener('click', () => filterEmployeesByJobTitle(jobTitle));
-       jobTitleList.appendChild(listItem);
-   });
-   // hiding the filters
-   jobTitles.slice(3).forEach(jobTitle => {
-       const listItem = document.createElement('li');
-       listItem.textContent = jobTitle;
-       listItem.addEventListener('click', () => filterEmployeesByJobTitle(jobTitle));
-       jobTitleListHidden.appendChild(listItem);
-   });
-   viewMoreJobTitles.addEventListener('click', () => {
-       if (jobTitleListHidden.style.display === 'none') {
-           jobTitleListHidden.style.display = 'block';
-           viewMoreJobTitles.textContent = 'View Less';
-       } else {
-           jobTitleListHidden.style.display = 'none';
-           viewMoreJobTitles.textContent = 'View More';
-       }
-   });
 }
-updateFilterLists();
+function filterAndDisplay(filterCriteria, selectedFilter) {
+    const matchingEmployees = employees.filter(employee => employee[filterCriteria] === selectedFilter);
+    displayEmployees(matchingEmployees);
+}
+function updateFilterLists() {
+    const departmentList = document.getElementById('departmentList');
+    const jobTitleList = document.getElementById('jobTitleList');
+    const jobTitleListHidden = document.getElementById('jobTitleListHidden');
+    const viewMoreJobTitles = document.getElementById('viewMoreJobTitles');
 
+    const departmentCounts = {};
+    const jobTitleCounts = {};
+    const locationCounts = {};
+
+    departmentList.innerHTML = "";
+    locationList.innerHTML = "";
+    jobTitleList.innerHTML = "";
+
+    employees.forEach(employee => {
+        const department = employee.department;
+        departmentCounts[department] = (departmentCounts[department] || 0) + 1;
+        const jobTitle = employee.jobTitle;
+        jobTitleCounts[jobTitle] = (jobTitleCounts[jobTitle] || 0) + 1;
+        const location = employee.location;
+        locationCounts[location] = (locationCounts[location] || 0) + 1;
+    });
+    
+
+    createFilterItems(departmentList, departmentCounts, 'department', departmentList);
+    createFilterItems(locationList, locationCounts, 'location', locationList);
+
+    const jobTitles = Object.keys(jobTitleCounts);
+    jobTitles.forEach((jobTitle, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${jobTitle} (${jobTitleCounts[jobTitle]})`;
+        listItem.addEventListener('click', () => filterAndDisplay('jobTitle', jobTitle));
+        if (index < 3) {
+            jobTitleList.appendChild(listItem);
+        } else {
+            jobTitleListHidden.appendChild(listItem);
+        }
+    });
+
+    viewMoreJobTitles.addEventListener('click', () => {
+        if (jobTitleListHidden.style.display === 'none') {
+            jobTitleListHidden.style.display = 'block';
+            viewMoreJobTitles.textContent = 'View Less';
+        } else {
+            jobTitleListHidden.style.display = 'none';
+            viewMoreJobTitles.textContent = 'View More';
+        }
+    });
+}
+
+updateFilterLists();
 
 
 
